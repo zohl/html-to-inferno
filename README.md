@@ -25,5 +25,5 @@ createFromHTML(
 
 ## See also
 - [[Live demo](TODO)]
-- [[Documentation](TODO)]
+- [[Documentation](API.md)]
 

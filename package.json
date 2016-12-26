@@ -5,7 +5,8 @@
   "main": "./src/index.js",
   "scripts": {
     "prepublish": "babel ./src -d ./lib",
-    "test": "mocha --compilers js:babel-core/register ./test/test.js"
+    "test": "mocha --compilers js:babel-core/register ./test/test.js",
+    "docs": "documentation lint ./src/index.js && documentation build -f md --document-exported ./src/index.js > ./API.md"
   },
   "author": "Al Zohali",
   "license": "MIT",
@@ -13,6 +14,7 @@
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
     "babel-preset-es2015": "^6.18.0",
+    "documentation": "^4.0.0-beta.17",
     "mocha": "^3.2.0",
     "seedrandom": "^2.4.2"
   },

@@ -1,31 +1,45 @@
 import {Parser} from 'htmlparser2';
 import createElement from 'inferno-create-element';
 
-
-// Parse string of html tags and create VNodes using Inferno's `createElement`.
-// 
-// userParams accepted keys:
-// 
-// - multipleNodes: bool
-//   Return array of elements when true, otherwise return single element or
-//   throw exception when number of elements differs from 1. 
-//
-// - preprocess: node -> node
-//   Use custom function to transform node before it is passed to
-//   `createElement`. The transformation happens before transforming attribute
-//   names. `node` has the following type:
-//   - name: string, tag name
-//   - props: dictionary, result of execution `htmlparser2` against the text
-//   - children: array of strings and/or Inferno's components.
-//
-// - parserParams: object
-//   Pass parameters to `htmlparser2`. See
-//   https://github.com/fb55/htmlparser2/wiki/Parser-options for reference.
-
 const id = x => x;
 const compose = (f, g) => x => f(g(x));
 const coalesce = (v1, v2) => (undefined !== v1) ? v1 : v2;
 
+
+/**
+   Intermediary representation of an HTML node.
+   @name node
+   @property {string} name - Tag name.
+   @property {Object} props - Dictionary of attributes and theirs values.
+   @property {(VNode|string)[]} children - Array of already processed nodes.
+ */
+
+
+/** Node preprocessor
+   @name preprocessor
+   @function
+   @arg {node}
+   @returns {node}
+ */
+
+/** Parse string of html tags and create VNodes using Inferno's
+   `createElement`.
+   @arg {string} s - HTML text to parse. 
+
+   @arg {Object} userParams - User-provided parameters to alter result.
+
+   @arg {boolean} userParams.multipleNodes - If true, do not throw exceptions
+   when number of resulting nodes differs from one, return array of nodes
+   instead.
+
+   @arg {preprocessor} userParams.preprocess - Function to apply to nodes
+   before passing them to `createElement`.
+
+   @arg {Object} userParams.parserParams - Parameters to `htmlparser2`. See
+   https://github.com/fb55/htmlparser2/wiki/Parser-options for reference.
+
+   @returns {Object|(Object[])} - VNode(s)
+ */
 const createFromHTML = (s, userParams) => {
 
   if (!userParams) {
