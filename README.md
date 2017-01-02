@@ -1,5 +1,7 @@
 # html-to-inferno
 
+# [![Build Status](https://travis-ci.org/zohl/html-to-inferno.svg?branch=master)](https://travis-ci.org/zohl/html-to-inferno)
+
 ## Description
 A small library to convert HTML into Inferno's VNodes.
 
